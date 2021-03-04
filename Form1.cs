@@ -14,11 +14,10 @@ namespace Part_6._5_Rock_Paper_Scissors
     {
         Random rng = new Random();
         int OpponentDecision;
-        int roundTimer = 0;
-        int resetTimer;
-        string playerDecision;
-        string pcDecision;
-        Boolean playerWins;
+        int roundTimer, resetTimer;
+        int wins, loses, ties;
+        string playerDecision, pcDecision;
+        bool playerWins;
 
         public frmMain()
         {
@@ -34,6 +33,7 @@ namespace Part_6._5_Rock_Paper_Scissors
                     switch (pcchoice)
                     {
                         case "rock":
+                            ties++;
                             break;
                         case "paper":
                             playerWins = false;
@@ -51,6 +51,7 @@ namespace Part_6._5_Rock_Paper_Scissors
                             playerWins = true;
                             break;
                         case "paper":
+                            ties++;
                             break;
                         case "scissors":
                             playerWins = false; 
@@ -68,6 +69,7 @@ namespace Part_6._5_Rock_Paper_Scissors
                             playerWins = true;
                             break;
                         case "scissors":
+                            ties++;
                             break;
                     }
                     break;  
@@ -77,11 +79,17 @@ namespace Part_6._5_Rock_Paper_Scissors
             if (playerWins == true)
             {
                 lblCountdown.Text = "";
+                wins++;
             }
             else
             {
                 lblCountdown.Text = "";
+                loses++;
             }
+
+            lblWins.Text = "wins: " + wins;
+            lblLoses.Text = "loses: " + loses;
+            lblTies.Text = "ties: " + ties;
         }
 
             
@@ -89,26 +97,52 @@ namespace Part_6._5_Rock_Paper_Scissors
         {
             imgPlayer.Image = Properties.Resources.rock;
             playerDecision = "rock";
+            btnPlay.Enabled = true;
         }
 
         private void rdoPaper_CheckedChanged(object sender, EventArgs e)
         {
             imgPlayer.Image = Properties.Resources.paper;
             playerDecision = "paper";
+            btnPlay.Enabled = true;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            wins = 0;
+            loses = 0;
+            ties = 0;
+            lblLoses.Text = "loses: " + loses;
+            lblWins.Text = "wins: " + wins;
+            lblTies.Text = "ties: " + ties;
+            rdoPaper.Checked = false;
+            rdoRock.Checked = false;
+            rdoScissors.Checked = false;
+            imgOpponent.Image = Properties.Resources.between_rounds;
+            imgPlayer.Image = Properties.Resources.between_rounds;
         }
 
         private void rdoScissors_CheckedChanged(object sender, EventArgs e)
         {
             imgPlayer.Image = Properties.Resources.scissors;
             playerDecision = "scissors";
+            btnPlay.Enabled = true;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            if (rdoPaper.Checked == true || rdoRock.Checked == true || rdoScissors.Checked == true)
+            {
+                tmrCountDown.Enabled = true;
+            }
+            else
+            {
+                tmrCountDown.Enabled = false;
+            }
+
             roundTimer = 4;
             resetTimer = 0;
             OpponentDecision = rng.Next(1, 4);
-            tmrCountDown.Enabled = true;
         }
 
         private void tmrCountDown_Tick(object sender, EventArgs e)
@@ -150,11 +184,13 @@ namespace Part_6._5_Rock_Paper_Scissors
         private void tmrPictureReset_Tick(object sender, EventArgs e)
         {
             resetTimer++;
-            if (resetTimer == 3)
+            if (resetTimer == 2)
             {
+                rdoPaper.Checked = false;
+                rdoRock.Checked = false;
+                rdoScissors.Checked = false;
                 imgOpponent.Image = Properties.Resources.between_rounds;
                 imgPlayer.Image = Properties.Resources.between_rounds;
-
                 tmrPictureReset.Enabled = false;
             }
         }

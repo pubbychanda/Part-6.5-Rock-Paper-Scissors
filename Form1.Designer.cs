@@ -40,6 +40,7 @@
             this.btnPlay = new System.Windows.Forms.Button();
             this.tmrCountDown = new System.Windows.Forms.Timer(this.components);
             this.lblCountdown = new System.Windows.Forms.Label();
+            this.tmrPictureReset = new System.Windows.Forms.Timer(this.components);
             this.grpPlayerChoice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgOpponent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayer)).BeginInit();
@@ -121,7 +122,7 @@
             // 
             // imgPlayer
             // 
-            this.imgPlayer.Image = global::Part_6._5_Rock_Paper_Scissors.Properties.Resources.rock;
+            this.imgPlayer.Image = global::Part_6._5_Rock_Paper_Scissors.Properties.Resources.between_rounds;
             this.imgPlayer.Location = new System.Drawing.Point(191, 136);
             this.imgPlayer.Name = "imgPlayer";
             this.imgPlayer.Size = new System.Drawing.Size(150, 150);
@@ -152,6 +153,11 @@
             this.lblCountdown.Name = "lblCountdown";
             this.lblCountdown.Size = new System.Drawing.Size(35, 37);
             this.lblCountdown.TabIndex = 6;
+            // 
+            // tmrPictureReset
+            // 
+            this.tmrPictureReset.Interval = 600;
+            this.tmrPictureReset.Tick += new System.EventHandler(this.tmrPictureReset_Tick);
             // 
             // frmMain
             // 
@@ -189,6 +195,7 @@
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Timer tmrCountDown;
         private System.Windows.Forms.Label lblCountdown;
+        private System.Windows.Forms.Timer tmrPictureReset;
     }
 }
 

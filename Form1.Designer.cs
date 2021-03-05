@@ -152,7 +152,6 @@
             this.lblCountdown.Name = "lblCountdown";
             this.lblCountdown.Size = new System.Drawing.Size(35, 37);
             this.lblCountdown.TabIndex = 6;
-            this.lblCountdown.Click += new System.EventHandler(this.lblCountdown_Click);
             // 
             // tmrPictureReset
             // 

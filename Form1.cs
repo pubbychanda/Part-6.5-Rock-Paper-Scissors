@@ -111,20 +111,26 @@ namespace Part_6._5_Rock_Paper_Scissors
             lblBalance.Text = "Balance: $" + playerBalance;
         }
 
-            
+        ///players decision    
         private void rdoRock_CheckedChanged(object sender, EventArgs e)
         {
             imgPlayer.Image = Properties.Resources.rock;
             playerDecision = "rock";
             btnPlay.Enabled = true;
         }
-
         private void rdoPaper_CheckedChanged(object sender, EventArgs e)
         {
             imgPlayer.Image = Properties.Resources.paper;
             playerDecision = "paper";
             btnPlay.Enabled = true;
         }
+        private void rdoScissors_CheckedChanged(object sender, EventArgs e)
+        {
+            imgPlayer.Image = Properties.Resources.scissors;
+            playerDecision = "scissors";
+            btnPlay.Enabled = true;
+        }
+
 
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -149,29 +155,18 @@ namespace Part_6._5_Rock_Paper_Scissors
 
         }
 
+        ///opens an instance of the instructions tab
         private void btnInstructions_Click(object sender, EventArgs e)
         {
             FrmInstructions instructionsForm = new FrmInstructions();
             instructionsForm.Show();
         }
 
-        private void lblCountdown_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        ///sets the maximum betting amount to never be more than your balance
         private void numBettingAmount_ValueChanged(object sender, EventArgs e)
         {
             numBettingAmount.Maximum = playerBalance;
         }
-
-        private void rdoScissors_CheckedChanged(object sender, EventArgs e)
-        {
-            imgPlayer.Image = Properties.Resources.scissors;
-            playerDecision = "scissors";
-            btnPlay.Enabled = true;
-        }
-
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if ((rdoPaper.Checked == true || rdoRock.Checked == true || rdoScissors.Checked == true) && numBettingAmount.Value <= playerBalance)

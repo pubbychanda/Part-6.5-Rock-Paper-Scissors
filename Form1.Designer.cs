@@ -245,6 +245,7 @@
             // 
             // numBettingAmount
             // 
+            this.numBettingAmount.DecimalPlaces = 2;
             this.numBettingAmount.Location = new System.Drawing.Point(23, 21);
             this.numBettingAmount.Name = "numBettingAmount";
             this.numBettingAmount.Size = new System.Drawing.Size(107, 22);

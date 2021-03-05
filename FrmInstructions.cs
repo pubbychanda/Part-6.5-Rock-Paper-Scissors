@@ -16,5 +16,10 @@ namespace Part_6._5_Rock_Paper_Scissors
         {
             InitializeComponent();
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

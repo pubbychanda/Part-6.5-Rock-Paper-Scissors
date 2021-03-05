@@ -16,8 +16,12 @@ namespace Part_6._5_Rock_Paper_Scissors
         int OpponentDecision;
         int roundTimer, resetTimer;
         int wins, loses, ties;
+        decimal playerBalance = 20;
         string playerDecision, pcDecision;
-        bool playerWins;
+        int playerWins; 
+        /// <summary>
+        /// 1 = win, 2 = lose, 3 = tie (playerwins)
+        /// </summary>
 
         public frmMain()
         {
@@ -33,13 +37,13 @@ namespace Part_6._5_Rock_Paper_Scissors
                     switch (pcchoice)
                     {
                         case "rock":
-                            ties++;
+                            playerWins = 3;
                             break;
                         case "paper":
-                            playerWins = false;
+                            playerWins = 2;
                             break;
                         case "scissors":
-                            playerWins = true;
+                            playerWins = 1;
                             break;
                     }
                     break;
@@ -48,13 +52,13 @@ namespace Part_6._5_Rock_Paper_Scissors
                     switch (pcchoice)
                     {
                         case "rock":
-                            playerWins = true;
+                            playerWins = 1;
                             break;
                         case "paper":
-                            ties++;
+                            playerWins = 3;
                             break;
                         case "scissors":
-                            playerWins = false; 
+                            playerWins = 2;
                             break;
                     }
                     break;
@@ -63,33 +67,48 @@ namespace Part_6._5_Rock_Paper_Scissors
                     switch (pcchoice)
                     {
                         case "rock":
-                            playerWins = false;
+                            playerWins = 2;
                             break;
                         case "paper":
-                            playerWins = true;
+                            playerWins = 1;
                             break;
                         case "scissors":
-                            ties++;
+                            playerWins = 3;
                             break;
                     }
                     break;  
             }
 
+            
             ///what to do upon decision
-            if (playerWins == true)
+            switch (playerWins)
             {
-                lblCountdown.Text = "";
-                wins++;
+                ///player wins
+                case 1: 
+                    lblCountdown.Text = "";
+                    imgPlayer.Image = Properties.Resources.you_win;
+                    wins++;
+                    playerBalance += numBettingAmount.Value;
+                    break;
+                ///player loses
+                case 2:
+                    lblCountdown.Text = "";
+                    imgPlayer.Image = Properties.Resources.you_lose;
+                    playerBalance -= numBettingAmount.Value;
+                    loses++;
+                    break;
+                ///player ties
+                case 3:
+                    lblCountdown.Text = "";
+                    imgPlayer.Image = Properties.Resources.you_tied;
+                    ties++;
+                    break;
             }
-            else
-            {
-                lblCountdown.Text = "";
-                loses++;
-            }
-
+            ///update scoreboard
             lblWins.Text = "wins: " + wins;
             lblLoses.Text = "loses: " + loses;
             lblTies.Text = "ties: " + ties;
+            lblBalance.Text = "Balance: $" + playerBalance;
         }
 
             
@@ -112,14 +131,38 @@ namespace Part_6._5_Rock_Paper_Scissors
             wins = 0;
             loses = 0;
             ties = 0;
+            playerBalance = 20;
+            numBettingAmount.Value = 0;
             lblLoses.Text = "loses: " + loses;
             lblWins.Text = "wins: " + wins;
             lblTies.Text = "ties: " + ties;
+            lblBalance.Text = "Balance: $" + playerBalance;
             rdoPaper.Checked = false;
             rdoRock.Checked = false;
             rdoScissors.Checked = false;
             imgOpponent.Image = Properties.Resources.between_rounds;
             imgPlayer.Image = Properties.Resources.between_rounds;
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnInstructions_Click(object sender, EventArgs e)
+        {
+            FrmInstructions instructionsForm = new FrmInstructions();
+            instructionsForm.Show();
+        }
+
+        private void lblCountdown_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numBettingAmount_ValueChanged(object sender, EventArgs e)
+        {
+            numBettingAmount.Maximum = playerBalance;
         }
 
         private void rdoScissors_CheckedChanged(object sender, EventArgs e)
@@ -131,7 +174,7 @@ namespace Part_6._5_Rock_Paper_Scissors
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (rdoPaper.Checked == true || rdoRock.Checked == true || rdoScissors.Checked == true)
+            if ((rdoPaper.Checked == true || rdoRock.Checked == true || rdoScissors.Checked == true) && numBettingAmount.Value <= playerBalance)
             {
                 tmrCountDown.Enabled = true;
             }

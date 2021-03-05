@@ -101,5 +101,17 @@
   <ItemGroup>
     <None Include="Resources\scissors.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\you lose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\you win.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\you tied.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rules.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
